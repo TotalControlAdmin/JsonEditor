@@ -1,0 +1,73 @@
+@model Models.Game.FileManager.FileManagerModel
+
+<script>
+    $(document).ready(function () {
+
+        //Same as PreLoadNextWindow but with different variable
+        function PreLoadNextJsonWindow() {
+            NextJsonWindow = CreateJsonWindow();
+        }
+
+        //CreateWindow (this is a copy of CreateWindow with jsoneditor.html instead of codemirror.html)
+        function CreateJsonWindow() {
+            let w = $('<div style="padding:0"><div id="filetoolbar"></div><iframe id="ifilecontents" src="/Views/Default/Game/Service/jsoneditor-plugin/jsoneditor.html?{0}" style="border:0;margin:0"></iframe></div>'.format(Math.random()));
+            $('body').append(w);
+
+            tb = w.find("#filetoolbar").kendoToolBar({
+                items: [
+                    { type: "button", text: "@Resources.Game.FileManager.Save", icon: "save", id: "file-save" },
+                    { type: "separator" },
+                    { template: "<label for='encoding'>@Resources.Game.FileManager.Encoding:</label>" },
+                    {
+                        template: "<input id='encoding' style='width:225px' />",
+                        overflow: "never"
+                    }
+                ],
+                click: onEditorToobarClick
+            }).data("kendoToolBar");
+
+            actions = [];
+
+            if (screen.width <= 900) {
+                actions = ["Refresh", "Close"];
+            } else {
+                actions = ["Refresh", "Minimize", "Maximize", "Close"];
+            }
+
+            kw = w.kendoWindow({
+                visible: false,
+                height: "450px",
+                resizable: true,
+                draggable: {
+                    containment: "body"
+                },
+                actions: actions
+            }).data("kendoWindow");
+            tb.editorwin = kw;
+
+            return kw;
+        }
+
+        //Change the default GetNewWindow so we can send a json editor if needed.
+        function GetNewJsonWindow() {
+            filemanager = $("#filemanager").getKendoFileManager();
+            selectedFiles = filemanager.getSelected();
+            if (selectedFiles[0].path.endsWith(".json")) {
+                try {
+                    EditorWindows.push(NextJsonWindow);
+                    newwin = EditorWindows[EditorWindows.length - 1];
+                    return newwin;
+                } finally {
+                    PreLoadNextJsonWindow();
+                }
+            } else {
+                return DefaultGetNewWindow();
+            }
+        }
+        var DefaultGetNewWindow = GetNewWindow;
+        GetNewWindow = GetNewJsonWindow;
+
+        //Load first json window
+        var NextJsonWindow = CreateJsonWindow()
+    })
+</script>

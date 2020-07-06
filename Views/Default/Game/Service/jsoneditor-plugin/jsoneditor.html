@@ -1,0 +1,61 @@
+<html style="height:100%;min-height:100%;margin:0;">
+<head>
+<link href="jsoneditor-9.0.3/jsoneditor.css" rel="stylesheet" type="text/css">
+<!-- <link href="jsoneditor-9.0.3/darktheme.css" rel="stylesheet" type="text/css"> -->
+<script src="jsoneditor-9.0.3/jsoneditor.js"></script>
+</head>
+<body style="height:100%;min-height:100%;margin:0;">
+
+<div id="jsoneditor" style="height:100%"></div>
+
+<script>
+const container = document.getElementById('jsoneditor')
+var editor;
+function CreateMirror() {
+  var readonly = false;
+  const options = {
+    mode: 'code',
+    modes: ['code', 'tree'], // allowed modes
+
+    onError: function (err) {
+      window.top.TCAdmin.Ajax.ShowBasicDialog("error", err.toString())
+    },
+    onModeChange: function (newMode, oldMode) {
+      
+    }
+  }
+  editor = new JSONEditor(container, options, "")
+}
+
+function SetContent(contents, filename){
+    editor.setText(contents);
+    editor.setMode("tree");
+    editor.setMode("code");
+}
+
+function GetContent(){
+    return editor.getText()
+}
+
+function SetOption(option, value){
+  //dark mode
+  if(option=="theme" & value=="dracula") {
+    var href = "jsoneditor-9.0.3/darktheme-tcadmin.css";
+    var link = document.createElement("link");
+    link.type = "text/css";
+    link.rel = "stylesheet";
+    link.href = href;
+    document.head.appendChild(link);
+  }
+  //Read only
+  if(option=="readOnly" & value=="readOnly") {
+    readonly = true;
+  }
+}
+
+//Fake codemirror
+Mirror = new Object();
+Mirror.on = function(){};
+</script>
+</body>
+</html>
