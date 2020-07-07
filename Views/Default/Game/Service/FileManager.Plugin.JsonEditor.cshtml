@@ -15,15 +15,14 @@
 
             tb = w.find("#filetoolbar").kendoToolBar({
                 items: [
-                    { type: "button", text: "@Resources.Game.FileManager.Save", icon: "save", id: "file-save" },
+                    { template: "<button id='file-save' onclick='onEditorSaveClick(this)' class='k-button k-button-icontext'><span class='k-icon k-i-save'></span>@Resources.Game.FileManager.Save</button>" },
                     { type: "separator" },
                     { template: "<label for='encoding'>@Resources.Game.FileManager.Encoding:</label>" },
                     {
                         template: "<input id='encoding' style='width:225px' />",
                         overflow: "never"
                     }
-                ],
-                click: onEditorToobarClick
+                ]
             }).data("kendoToolBar");
 
             actions = [];

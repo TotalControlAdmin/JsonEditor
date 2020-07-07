@@ -1,7 +1,6 @@
 <html style="height:100%;min-height:100%;margin:0;">
 <head>
 <link href="jsoneditor-9.0.3/jsoneditor.css" rel="stylesheet" type="text/css">
-<!-- <link href="jsoneditor-9.0.3/darktheme.css" rel="stylesheet" type="text/css"> -->
 <script src="jsoneditor-9.0.3/jsoneditor.js"></script>
 </head>
 <body style="height:100%;min-height:100%;margin:0;">
@@ -29,8 +28,12 @@ function CreateMirror() {
 
 function SetContent(contents, filename){
     editor.setText(contents);
-    editor.setMode("tree");
-    editor.setMode("code");
+
+    //this formats the content and shows if it has syntax errors.
+    if (contents != "") {
+        editor.setMode("tree");
+        editor.setMode("code");
+    }
 }
 
 function GetContent(){
@@ -39,8 +42,12 @@ function GetContent(){
 
 function SetOption(option, value){
   //dark mode
-  if(option=="theme" & value=="dracula") {
-    var href = "jsoneditor-9.0.3/darktheme-tcadmin.css";
+  if(option=="theme") {
+      if (value == "dracula") {
+          var href = "jsoneditor-9.0.3/dark-tcadmin.css";
+      } else {
+          var href = "jsoneditor-9.0.3/light-tcadmin.css";
+      }
     var link = document.createElement("link");
     link.type = "text/css";
     link.rel = "stylesheet";
