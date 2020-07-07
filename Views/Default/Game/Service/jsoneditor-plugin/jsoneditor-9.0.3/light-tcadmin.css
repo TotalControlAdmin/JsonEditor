@@ -1,0 +1,9 @@
+.jsoneditor-menu {
+    background-color: rgb(0, 76, 131);
+    border-bottom: 1px solid rgb(0, 76, 131);
+}
+
+.jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected, .jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected:hover,
+.jsoneditor-contextmenu .jsoneditor-menu li button.jsoneditor-selected {
+    background-color: rgb(0, 76, 131);
+}
