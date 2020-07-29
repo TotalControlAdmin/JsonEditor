@@ -48,10 +48,8 @@
         }
 
         //Change the default GetNewWindow so we can send a json editor if needed.
-        function GetNewJsonWindow() {
-            filemanager = $("#filemanager").getKendoFileManager();
-            selectedFiles = filemanager.getSelected();
-            if (selectedFiles[0].path.endsWith(".json")) {
+        function GetNewJsonWindow(item) {
+            if (item.path.endsWith(".json")) {
                 try {
                     EditorWindows.push(NextJsonWindow);
                     newwin = EditorWindows[EditorWindows.length - 1];
