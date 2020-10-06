@@ -15,7 +15,22 @@
 
             tb = w.find("#filetoolbar").kendoToolBar({
                 items: [
-                    { template: "<button id='file-save' onclick='onEditorSaveClick(this)' class='k-button k-button-icontext'><span class='k-icon k-i-save'></span>@Resources.Game.FileManager.Save</button>" },
+                    {
+                        type: "button",
+                        id: "saveCloseButton",
+                        icon: "save",
+                        text: "@Resources.Game.FileManager.SaveAndClose",
+                        attributes: { "close": "1" },
+                        click: onEditorSaveClick
+                    },
+                    {
+                        type: "button",
+                        id: "saveButton",
+                        icon: "save",
+                        text: "@Resources.Game.FileManager.Save",
+                        attributes: { "close": "0" },
+                        click: onEditorSaveClick
+                    },
                     { type: "separator" },
                     { template: "<label for='encoding'>@Resources.Game.FileManager.Encoding:</label>" },
                     {
