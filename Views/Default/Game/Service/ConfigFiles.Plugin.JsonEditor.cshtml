@@ -17,18 +17,18 @@
                 items: [
                     {
                         type: "button",
-                        id: "saveCloseButton",
-                        icon: "save",
-                        text: "@Resources.Game.FileManager.SaveAndClose",
-                        attributes: { "close": "1" },
-                        click: onTextSaveClick
-                    },
-                    {
-                        type: "button",
                         id: "saveButton",
                         icon: "save",
                         text: "@Resources.Game.FileManager.Save",
                         attributes: { "close": "0" },
+                        click: onTextSaveClick
+                    },
+                    {
+                        type: "button",
+                        id: "saveCloseButton",
+                        icon: "save",
+                        text: "@Resources.Game.FileManager.SaveAndClose",
+                        attributes: { "close": "1" },
                         click: onTextSaveClick
                     },
                     { type: "separator" },
